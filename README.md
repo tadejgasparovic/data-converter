@@ -24,3 +24,6 @@ Let's say we want to convert 15,3<sub>10</sub> (keep in mind we are using the co
 First we need to copy the value into the clipboard. This can be done by selecting the value and pressing Ctrl + C or rightclicking and selecting *Copy*.
 Then we press *Alt* to activate the tool, followed by *D* (to indicate the input data is decimal) and then B (to indicate we want the output to be binary).
 Lastly, we need to paste the result. This can be done by pressing Ctrl + V or right clicking and selecting *Paste*. In this case we see `1111,01010` as the result.
+
+## Change Precision
+Precision is by default set to 5 decimal places. To change it, first copy the new precision into the clipboard (e.g. `10`), activate the tool by pressing *Alt*, and press *P* to set the precision. A success / error message will be placed into the clipboard.

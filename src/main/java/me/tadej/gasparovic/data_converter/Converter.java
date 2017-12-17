@@ -22,6 +22,8 @@ public class Converter {
 	
 	private static String value;
 	
+	private static int precision = 5;
+	
 	private static int convert_from;
 	private static int convert_to;
 	
@@ -43,14 +45,14 @@ public class Converter {
 	
 	public static String convert(String value, int from, int to, int precision) throws Exception {
 		if(!value.contains(",")){
-			return Integer.toString(Integer.valueOf(value, from), to);
+			return Long.toString(Integer.valueOf(value, from), to);
 		}
 		
 		String[] parts = value.trim().split(",");
 		
-		double number = (double)Integer.valueOf(parts[0] + parts[1], from) * Math.pow(from, (double)-parts[1].length());
+		double number = (double)Long.valueOf(parts[0] + parts[1], from) * Math.pow(from, (double)-parts[1].length());
 		
-		String s = Integer.toString((int)Math.round(number / Math.pow(to, -precision)), to);
+		String s = Long.toString((int)Math.round(number / Math.pow(to, -precision)), to);
 
 		return s.substring(0, s.length() - precision) + "," + s.substring(s.length() - precision);
 	}
@@ -207,14 +209,14 @@ public class Converter {
 		if(convert_from == BCD){
 			String dec = Converter.fromBCD(value);
 			try {
-				Converter.putValue(Converter.convert(dec, DECIMAL, convert_to, 5));
+				Converter.putValue(Converter.convert(dec, DECIMAL, convert_to, precision));
 			} catch (Exception e) {
 				Converter.putValue("Exception: " + e.getMessage());
 			}
 			return;
 		}else if(convert_to == BCD){
 			try {
-				String dec = Converter.convert(value, convert_from, DECIMAL, 5);
+				String dec = Converter.convert(value, convert_from, DECIMAL, precision);
 				Converter.putValue(Converter.toBCD(dec));
 			} catch (Exception e) {
 				Converter.putValue("Exception: " + e.getMessage());
@@ -225,14 +227,14 @@ public class Converter {
 		if(convert_from == XS3){
 			String dec = Converter.fromXS3(value);
 			try {
-				Converter.putValue(Converter.convert(dec, DECIMAL, convert_to, 5));
+				Converter.putValue(Converter.convert(dec, DECIMAL, convert_to, precision));
 			} catch (Exception e) {
 				Converter.putValue("Exception: " + e.getMessage());
 			}
 			return;
 		}else if(convert_to == XS3){
 			try {
-				String dec = Converter.convert(value, convert_from, DECIMAL, 5);
+				String dec = Converter.convert(value, convert_from, DECIMAL, precision);
 				Converter.putValue(Converter.toXS3(dec));
 			} catch (Exception e) {
 				Converter.putValue("Exception: " + e.getMessage());
@@ -241,9 +243,26 @@ public class Converter {
 		}
 		
 		try{
-			Converter.putValue(Converter.convert(value, convert_from, convert_to, 5));
+			Converter.putValue(Converter.convert(value, convert_from, convert_to, precision));
 		}catch(Exception e){
 			Converter.putValue("Exception: " + e.getMessage());
 		}
+	}
+
+	public static int getPrecision() {
+		return precision;
+	}
+
+	public static void loadAndSetPrecision(){
+		try {
+			Converter.loadValue();
+			Converter.setPrecision(Integer.parseInt(value));
+		} catch (Exception e) {
+			Converter.putValue("Exception: " + e.getMessage());
+		}
+	}
+	
+	public static void setPrecision(int precision) {
+		Converter.precision = precision;
 	}
 }

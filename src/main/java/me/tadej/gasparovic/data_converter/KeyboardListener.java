@@ -113,6 +113,12 @@ public class KeyboardListener implements NativeKeyListener {
 					}
 					break;
 					
+				case NativeKeyEvent.VC_P:
+					Converter.loadAndSetPrecision();
+					Converter.putValue("Precision set to: " + Converter.getPrecision());
+					converter_open = false;
+					break;
+					
 				default:
 					Converter.putValue("Error: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
 					converter_open = false;
