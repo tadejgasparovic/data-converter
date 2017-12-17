@@ -17,6 +17,7 @@ To use it, simply copy the value you wish to convert, press Alt to activate the 
 | C | BCD Code |
 | I | XS-3 |
 | G | Gray Code |
+| T | Two's Complement |
 
 ## Usage Example
 Let's say we want to convert 15,3<sub>10</sub> (keep in mind we are using the comma (,) symbol as the decimal separator and **NOT** the dot (.) symbol) into a binary representation.
