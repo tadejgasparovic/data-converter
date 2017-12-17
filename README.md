@@ -1,0 +1,2 @@
+# data-converter
+An afternoon project (~1 hour) that I created out of boredom. It's a tool running in the background which allows you to convert between different numeric bases and binary encodings. Supported numeric bases are: binary, hexadecimal, octal, decimal. Supported encodings are: XS-3 (Excess 3), BCD, GrayCode. All, except gray code, support floating point numbers (using comma (,) separator for decimal places).
