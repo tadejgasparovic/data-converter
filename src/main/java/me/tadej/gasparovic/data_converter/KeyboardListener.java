@@ -113,6 +113,17 @@ public class KeyboardListener implements NativeKeyListener {
 					}
 					break;
 					
+				case NativeKeyEvent.VC_T:
+					if(from_selected){
+						Converter.convertTo(Converter.TWOS_COMPLEMENT);
+						Converter.convertAndPut();
+						converter_open = false;
+					}else{
+						Converter.convertFrom(Converter.TWOS_COMPLEMENT);
+						from_selected = true;
+					}
+					break;
+					
 				case NativeKeyEvent.VC_P:
 					Converter.loadAndSetPrecision();
 					Converter.putValue("Precision set to: " + Converter.getPrecision());
@@ -133,6 +144,7 @@ public class KeyboardListener implements NativeKeyListener {
 				Converter.loadValue();
 				converter_open = true;
 			} catch (Exception e1) {
+				e1.printStackTrace();
 				Converter.putValue("Exception: " + e1.getMessage());
 			}
 		}

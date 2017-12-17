@@ -20,6 +20,8 @@ public class Converter {
 	public static final int BCD = 4;
 	public static final int XS3 = 3;
 	
+	public static final int TWOS_COMPLEMENT = 5;
+	
 	private static String value;
 	
 	private static int precision = 5;
@@ -191,6 +193,13 @@ public class Converter {
 		return Double.toString(Double.parseDouble(result)).replace('.', ',');
 	}
 	
+	public static String twosComplement(String value){
+		long num = Long.parseLong(value, 2);
+		long mask = Long.parseLong(StringUtils.leftPad("", value.length(), '1'), 2);
+		
+		return StringUtils.leftPad(Long.toString((num ^ mask) + 1, 2), value.length(), '0');
+	}
+	
 	public static void convertAndPut() {
 		if(convert_from == GRAY){
 			int bin = Converter.fromGray(value);
@@ -202,6 +211,7 @@ public class Converter {
 				Converter.putValue(Converter.toGray(bin));
 			} catch (Exception e) {
 				Converter.putValue("Exception: " + e.getMessage());
+				e.printStackTrace();
 			}
 			return;
 		}
@@ -212,6 +222,7 @@ public class Converter {
 				Converter.putValue(Converter.convert(dec, DECIMAL, convert_to, precision));
 			} catch (Exception e) {
 				Converter.putValue("Exception: " + e.getMessage());
+				e.printStackTrace();
 			}
 			return;
 		}else if(convert_to == BCD){
@@ -220,6 +231,7 @@ public class Converter {
 				Converter.putValue(Converter.toBCD(dec));
 			} catch (Exception e) {
 				Converter.putValue("Exception: " + e.getMessage());
+				e.printStackTrace();
 			}
 			return;
 		}
@@ -230,6 +242,7 @@ public class Converter {
 				Converter.putValue(Converter.convert(dec, DECIMAL, convert_to, precision));
 			} catch (Exception e) {
 				Converter.putValue("Exception: " + e.getMessage());
+				e.printStackTrace();
 			}
 			return;
 		}else if(convert_to == XS3){
@@ -238,14 +251,39 @@ public class Converter {
 				Converter.putValue(Converter.toXS3(dec));
 			} catch (Exception e) {
 				Converter.putValue("Exception: " + e.getMessage());
+				e.printStackTrace();
 			}
 			return;
+		}
+		
+		if((convert_to == BINARY && value.charAt(0) == '-') || convert_to == TWOS_COMPLEMENT){
+			try {
+				String bin = Converter.convert(value.substring(1), convert_from, BINARY, precision);
+				Converter.putValue(Converter.twosComplement(bin));
+			} catch (Exception e) {
+				Converter.putValue("Exception: " + e.getMessage());
+				e.printStackTrace();
+			}
+			return;
+		}else if(convert_from == TWOS_COMPLEMENT && value.charAt(0) == '1'){
+			String bin = Converter.twosComplement(value);
+			try {
+				String converted = Converter.convert(bin, BINARY, convert_to, precision);
+				Converter.putValue("-" + converted);
+			} catch (Exception e) {
+				Converter.putValue("Exception: " + e.getMessage());
+				e.printStackTrace();
+			}
+			return;
+		}else if(convert_from == TWOS_COMPLEMENT && value.charAt(0) != '1'){
+			convert_from = BINARY;
 		}
 		
 		try{
 			Converter.putValue(Converter.convert(value, convert_from, convert_to, precision));
 		}catch(Exception e){
 			Converter.putValue("Exception: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -259,6 +297,7 @@ public class Converter {
 			Converter.setPrecision(Integer.parseInt(value));
 		} catch (Exception e) {
 			Converter.putValue("Exception: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
