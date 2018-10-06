@@ -4,7 +4,7 @@ An afternoon project (~1 hour) that I created out of boredom. It's a tool runnin
 # Usage
 When the tool is started there is no indication of it running. If there's an error during startup an error dialog will pop up.
 
-To use it, simply copy the value you wish to convert, press Alt to activate the tool (**don't** hold down the Alt key). Then you need to select the *to* and *from* conversion types respectively. You can do so by pressing one of the keys shown in the table bellow. After you have selected both types the clipboard will contain the result. In case of an error, the clipboard will contain the error message.
+To use it, simply copy the value you wish to convert, press Alt to activate the tool (**don't** hold down the Alt key). Then you need to select the *from* and *to* conversion types respectively. You can do so by pressing one of the keys shown in the table bellow. After you have selected both types the clipboard will contain the result. In case of an error, the clipboard will contain the error message.
 
 ## Supported numeric bases and binary encodings
 
